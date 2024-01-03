@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 
+
 '''
 In the context of data types, "ordered" data refers to ordinal data.
 Ordinal data is a type of categorical data with an order (or rank).
@@ -50,23 +51,23 @@ extraFeatures = ("age", "sex", "target")
 # Age vs. All Real for both Sexes
 for feature in data.columns:
     if feature in realFeatures:
-        plt.figure()
+        #plt.figure()
         sns.relplot(    
                 data=data, x="age", y=feature, col="sex",
                 hue="target"
         )
-        plt.savefig(f"plots/{feature}_vs_age.png")
+        #plt.savefig(f"plots/{feature}_vs_age.png")
     
 
 # Categorical Counts
 for feature in data.columns:
     if feature in categoricalFeatures:
-        plt.figure()
+        #plt.figure()
         sns.countplot(  # histplot if for continuous non categorical data
             data=data, x=feature, hue="target"
         )
         plt.title(f"{detail[feature]} {detail['target']}")
-        plt.savefig(f"plots/{feature}_count.png")
+        #plt.savefig(f"plots/{feature}_count.png")
 
 # Categorical Normalized Counts
 # for feature in data.columns:
@@ -88,6 +89,12 @@ for feature in data.columns:
 
 
 
-# print(data.head())
-# sns.heatmap(data_scaled.corr(), annot=True, linewidths=2)
-# plt.show()
+#print(data.head())
+plt.figure(figsize=(12, 10))
+sns.heatmap(data.corr(), annot=True, linewidths=2)
+plt.show()
+
+
+sns.countplot(data=data, x="sex", hue="target")
+plt.title("Sex vs Target")
+plt.show()
