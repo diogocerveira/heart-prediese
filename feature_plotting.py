@@ -12,8 +12,6 @@ detail = {"age": "Age", "sex": "Sex", "cp": "Chest Pain Type", "trestbps": "Rest
           "thalach": "Max Heart Rate", "exang": "Exercise Induced Angina", "oldpeak": "Oldpeak",
           "slope": "Slope", "ca": "Number of major vessels", "thal": "Thal", "target": "(0 - no disease, 1 - disease))"}
 
-
-
 numericFeatures = ["age", "trestbps", "chol", "thalach", "oldpeak", "ca"]
 categoricalFeatures = ["sex", "cp", "fbs", "restecg", "exang", "slope", "thal"]
 
@@ -21,6 +19,8 @@ data = pd.read_csv("heart.dat", sep="\\s+", header=None)
 data.columns = detail.keys()
 # print(data.describe())
 # print(data.head())
+
+
 
 
 data["sex"] = data["sex"].replace({0: "female", 1: "male"})
@@ -32,7 +32,7 @@ for feature in numericFeatures:
     plt.figure()
     sns.kdeplot(data=data, x=feature, fill=True)
     plt.title(f"{detail[feature]} Density")
-    plt.savefig(f"plots/numeric/{feature}_kde.png")
+    plt.savefig(f"plots/numeric/kde1000/{feature}_kde1000.png")
 
 # Age vs. All Real for both Sexes
 for feature in numericFeatures:
@@ -43,6 +43,11 @@ for feature in numericFeatures:
     )
     plt.savefig(f"plots/{feature}_target_density.png")
 '''
+for feature in numericFeatures:
+    plt.figure()
+    sns.histplot(data=data, x=feature, fill=True)
+    plt.title(f"{detail[feature]} Histogram")
+    plt.savefig(f"plots/numeric/hist/{feature}_hist.png")
 
 
 
@@ -66,8 +71,7 @@ for feature in categoricalFeatures:
     plt.title(f"Normalised {detail[feature]} VS Target")
     plt.savefig(f"plots/categorical/normalized/{feature}VsTarget_normalized.png")
 '''
-    
-plt.show()
+
 
 
 
