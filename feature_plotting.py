@@ -20,6 +20,11 @@ data.columns = detail.keys()
 # print(data.describe())
 # print(data.head())
 
+feature = "target"
+plt.figure()
+sns.countplot(data=data, x=feature, hue="target")
+plt.title(f"{detail[feature]} VS Target")
+plt.savefig(f"plots/{feature}_count.png")
 
 
 
