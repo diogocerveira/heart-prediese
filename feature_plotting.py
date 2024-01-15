@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
+from itertools import combinations
 
 # Set2 was used before
 sns.set_theme(context="paper", font_scale=1.5, style="whitegrid", palette="RdGy")
@@ -20,50 +21,52 @@ data.columns = detail.keys()
 # print(data.describe())
 # print(data.head())
 
+# TARGET
+'''
 feature = "target"
 plt.figure()
 sns.countplot(data=data, x=feature, hue="target")
 plt.title(f"{detail[feature]} VS Target")
-plt.savefig(f"plots/{feature}_count.png")
-
+# plt.savefig(f"plots/{feature}_count.png")
+'''
 
 
 data["sex"] = data["sex"].replace({0: "female", 1: "male"})
 data["target"] = data["target"].replace({1: "no disease", 2: "disease"})
 
-# NUMERIC
+# NUMERICAL
 '''
 for feature in numericFeatures:
     plt.figure()
     sns.kdeplot(data=data, x=feature, fill=True)
     plt.title(f"{detail[feature]} Density")
-    plt.savefig(f"plots/numeric/kde1000/{feature}_kde1000.png")
+    # plt.savefig(f"plots/numeric/kde1000/{feature}_kde1000.png")
 
-# Age vs. All Real for both Sexes
-for feature in numericFeatures:
-    plt.figure()
-    sns.relplot(    
-            data=data, x="age", y=feature, col="sex",
-            hue="target"
-    )
-    plt.savefig(f"plots/{feature}_target_density.png")
-'''
 for feature in numericFeatures:
     plt.figure()
     sns.histplot(data=data, x=feature, fill=True)
     plt.title(f"{detail[feature]} Histogram")
-    plt.savefig(f"plots/numeric/hist/{feature}_hist.png")
+    # plt.savefig(f"plots/numeric/hist/{feature}_hist.png")
 
+# Real vs. Real
+for feature1, feature2 in combinations(numericFeatures, 2):
+    plt.figure()
+    sns.relplot(    
+            data=data, x=feature1, y=feature2,
+            hue="target"
+    )
+    # plt.savefig(f"plots/numeric/num_vs_num/{feature1}Vs{feature2}.png")
+'''
 
 
 # CATEGORICAL
-'''
+
 # Feature VS Target Counts
 for feature in categoricalFeatures:
     plt.figure()
     sns.countplot(data=data, x=feature, hue="target")
     plt.title(f"{detail[feature]} VS Target")
-    plt.savefig(f"plots/categorical/default/{feature}VsTarget.png")
+    # plt.savefig(f"plots/categorical/default/{feature}VsTarget.png")
 
 # Normalized Feature VS Target Counts
 for feature in categoricalFeatures:
@@ -74,13 +77,7 @@ for feature in categoricalFeatures:
     plt.figure()
     sns.barplot(data=proportions, x=feature, y="proportion", hue="target")
     plt.title(f"Normalised {detail[feature]} VS Target")
-    plt.savefig(f"plots/categorical/normalized/{feature}VsTarget_normalized.png")
-'''
-
-
-
-
-
+    # plt.savefig(f"plots/categorical/normalized/{feature}VsTarget_normalized.png")
 
 
 
