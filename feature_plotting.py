@@ -22,44 +22,54 @@ data.columns = detail.keys()
 # print(data.describe())
 # print(data.head())
 
-# NUMERIC
-
-# Age vs. All Real for both Sexes
-# for feature in data.columns:
-#     if feature in realFeatures:
-#         plt.figure()
-#         sns.relplot(    
-#                 data=data, x="age", y=feature, col="sex",
-#                 hue="target"
-#         )
-#         plt.savefig(f"plots/{feature}_vs_age.png")
-
 
 data["sex"] = data["sex"].replace({0: "female", 1: "male"})
 data["target"] = data["target"].replace({1: "no disease", 2: "disease"})
 
-# CATEGORICAL
+# NUMERIC
+'''
+for feature in numericFeatures:
+    plt.figure()
+    sns.kdeplot(data=data, x=feature, hue="target", fill=True)
+    plt.title(f"{detail[feature]} vs Target")
+    plt.savefig(f"plots/numeric/{feature}_target_kde.png")
 
+
+# Age vs. All Real for both Sexes
+for feature in numericFeatures:
+    plt.figure()
+    sns.relplot(    
+            data=data, x="age", y=feature, col="sex",
+            hue="target"
+    )
+    plt.savefig(f"plots/{feature}_target_density.png")
+'''
+
+
+
+# CATEGORICAL
+'''
 # Feature VS Target Counts
 for feature in categoricalFeatures:
-
     plt.figure()
     sns.countplot(data=data, x=feature, hue="target")
-    plt.title(f"{detail[feature]} Target Counts")
-    plt.savefig(f"plots/categorical/default/{feature}_target_count.png")
+    plt.title(f"{detail[feature]} VS Target")
+    plt.savefig(f"plots/categorical/default/{feature}VsTarget.png")
 
 # Normalized Feature VS Target Counts
 for feature in categoricalFeatures:
     # thanks copilot
+    
     # count unique target values for each class in each feature and normalize them
     proportions = data.groupby(feature)["target"].value_counts(normalize=True).rename("proportion").reset_index()
-
     plt.figure()
     sns.barplot(data=proportions, x=feature, y="proportion", hue="target")
-    plt.title(f"Normalised {detail[feature]} Target Counts")
-    plt.savefig(f"plots/categorical/normalized/{feature}_target_normalizedCount.png")
+    plt.title(f"Normalised {detail[feature]} VS Target")
+    plt.savefig(f"plots/categorical/normalized/{feature}VsTarget_normalized.png")
+'''
+    
+plt.show()
 
-# plt.show()
 
 
 
