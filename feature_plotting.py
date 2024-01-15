@@ -30,10 +30,9 @@ data["target"] = data["target"].replace({1: "no disease", 2: "disease"})
 '''
 for feature in numericFeatures:
     plt.figure()
-    sns.kdeplot(data=data, x=feature, hue="target", fill=True)
-    plt.title(f"{detail[feature]} vs Target")
-    plt.savefig(f"plots/numeric/{feature}_target_kde.png")
-
+    sns.kdeplot(data=data, x=feature, fill=True)
+    plt.title(f"{detail[feature]} Density")
+    plt.savefig(f"plots/numeric/{feature}_kde.png")
 
 # Age vs. All Real for both Sexes
 for feature in numericFeatures:
